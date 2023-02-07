@@ -18,6 +18,46 @@ const savegoods = (req,res,next) => {
     })
 }
 
-// module.exports = {
-//     upload
-// }
+const dataCount = () => {
+    return new Promise((reslove, reject) => {
+        mysql.query('select FOUND_ROWS() from goods', (err, result) => {
+            if (err) {
+                reslove(false)
+            } else {
+                reslove(result.length)
+            }
+        })
+    })
+}
+
+const goodsList = async (req, res, next) => {
+    let count = await dataCount()
+    let size = req.body.size ? req.body.size : null
+    let page = req.body.page
+    let findStr = `select * from goods where title='${req.body.title ? req.body.title : null}' or classify='${req.body.classify ? req.body.classify : null}' limit ${(page - 1) * size}, ${size}`
+    mysql.query(findStr, (err, result) => {
+        if (err) {
+            res.send({
+                code: 500,
+                msg: err.message
+            })
+        } else {
+            res.send({
+                code: 200,
+                data: {
+                    list: result,
+                    page: {
+                        size,
+                        page,
+                        count
+                    }
+                },
+                msg: 'success'
+            })
+        }
+    })
+}
+
+module.exports = {
+    goodsList
+}

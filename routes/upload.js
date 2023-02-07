@@ -10,9 +10,9 @@ var upload = require('../utils/upload')
 // // 为/position中所有的路由都使用这个中间件
 // router.use(resApplicationJson)
 
-router.post('/img', upload.uploadImg, (req, res) => {
-    let file = req.file
-    console.log(req.body,222)
+router.post('/img', upload.uploadImg.single('image'), (req, res) => {
+    let file = req.body.file
+    // console.log(req,222)
     if (file === undefined) {
         res.send({
             code: 500,
@@ -21,7 +21,7 @@ router.post('/img', upload.uploadImg, (req, res) => {
     } else {
         res.send({
             code: 200,
-            data: `/uploads/${file.filename}`,
+            data: file,
             msg: 'success'
         })
     }
