@@ -109,7 +109,7 @@ const updateUser = (req, res, next) => {
         } else {
             res.send("admin", {
                 code: 200,
-                data: null,
+                data: '更新成功',
                 msg: "success",
             })
         }
@@ -128,7 +128,7 @@ const delUser = (req, res, next) => {
         } else {
             res.send("admin", {
                 code: 200,
-                data: null,
+                data: '删除成功',
                 msg: "success",
             })
         }

@@ -17,6 +17,7 @@ var student = require('./routes/student')
 var admin = require('./routes/admin')
 var upload = require('./routes/upload')
 var goods = require('./routes/goods')
+var order = require('./routes/order')
 
 var app = express()
 // express-session
@@ -43,5 +44,6 @@ app.use('/api/student', student)
 app.use('/api/admin', admin)
 app.use('/api/upload', upload)
 app.use('/api/goods', goods)
+app.use('api/order', order)
 
 module.exports = app
