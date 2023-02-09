@@ -40,7 +40,14 @@ const goodsList = async (req, res, next) => {
     let count = await dataCount()
     let size = req.body.size ? req.body.size : 10
     let page = req.body.page
-    let findStr = `select * from goods where title='${req.body.title ? req.body.title : null}' or classify='${req.body.classify ? req.body.classify : null}' limit ${(page - 1) * size}, ${size}`
+    let where = ``
+    if (req.body.title) {
+        where += ` and title = '${req.body.title}'`
+    }
+    if (req.body.classify) {
+        where += ` and classify = '${req.body.classify}'`
+    }
+    let findStr = `select * from goods where 1 = 1 ${where} limit ${(page - 1) * size}, ${size}`
     mysql.query(findStr, (err, result) => {
         if (err) {
             res.send({

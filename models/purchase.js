@@ -1,9 +1,9 @@
 /*
- * @FilePath: order.js
+ * @FilePath: purchase.js
  * @Author: yu
- * @Date: 2023-02-08 11:59:24
+ * @Date: 2023-02-09 13:49:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-08 16:10:49
+ * @LastEditTime: 2023-02-09 18:23:51
  * @Descripttion: 
  */
 var mysql = require('../utils/mysql')
@@ -25,12 +25,12 @@ const orderList = async (req, res, next) => {
     let count = await orderLength()
     let where = ``
     if (req.body.id) {
-        where += ` and id = '${req.body.id}'`
+        where += ` and id = ${req.body.id}`
     }
     if (req.body.startTime && req.body.endTime) {
         where += ` and createTime between '${req.body.startTime}' and '${req.body.endTime}'`
     }
-    let sqlStr = `select * from order where 1 = 1 and status = 1 ${where} limit ${(page - 1) * size}, ${size}`
+    let sqlStr = `select * from order where 1 = 1 and status = 2 ${where} limit ${(page - 1) * size}, ${size}`
     mysql.query(sqlStr, (err, result) => {
         if (err) {
             res.send({
