@@ -19,7 +19,7 @@ const orderLength = new Promise((resolve, reject) => {
     })
 })
 
-const orderList = async (req, res, next) => {
+const purchaseList = async (req, res, next) => {
     let page = req.body.page
     let size = req.body.size ? req.body.size : 10
     let count = await orderLength()
@@ -53,7 +53,7 @@ const orderList = async (req, res, next) => {
     })
 }
 
-const addOrder = (req, res, next) => {
+const addPurchase = (req, res, next) => {
     let sqlStr = `insert into order set ?`
     mysql.query(sqlStr, req.body, (err, result) => {
         if (err) {
@@ -71,7 +71,7 @@ const addOrder = (req, res, next) => {
     })
 }
 
-const ordertDetail = (req, res, next) => {
+const purchaseDetail = (req, res, next) => {
     let sqlStr = `select * from order where id = ${req.query.id}`
     mysql.query(sqlStr, (err, result) => {
         if (err) {
@@ -90,7 +90,7 @@ const ordertDetail = (req, res, next) => {
 }
 
 module.exports = {
-    orderList,
-    addOrder,
-    ordertDetail
+    purchaseList,
+    addPurchase,
+    purchaseDetail
 }

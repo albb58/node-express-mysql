@@ -3,7 +3,7 @@
  * @Author: yu
  * @Date: 2023-02-01 21:26:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-07 17:27:37
+ * @LastEditTime: 2023-02-09 22:08:13
  * @Descripttion: 
  */
 var express = require('express');
@@ -18,6 +18,8 @@ var admin = require('./routes/admin')
 var upload = require('./routes/upload')
 var goods = require('./routes/goods')
 var order = require('./routes/order')
+var purchase = require('./routes/purchase')
+var statistic = require('./routes/statistic')
 
 var app = express()
 // express-session
@@ -44,6 +46,8 @@ app.use('/api/student', student)
 app.use('/api/admin', admin)
 app.use('/api/upload', upload)
 app.use('/api/goods', goods)
-app.use('api/order', order)
+app.use('/api/order', order)
+app.use('/api/purchase', purchase)
+app.use('/api/statistic', statistic)
 
 module.exports = app
