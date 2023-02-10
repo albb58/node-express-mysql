@@ -42,7 +42,7 @@ const goodsList = async (req, res, next) => {
     let page = req.body.page
     let where = ``
     if (req.body.title) {
-        where += ` and title = '${req.body.title}'`
+        where += ` and title like '%${req.body.title}%'`
     }
     if (req.body.classify) {
         where += ` and classify = '${req.body.classify}'`
@@ -106,10 +106,28 @@ const delGoods = (req,res,next) => {
         }
     })
 }
+const goodsDetail = (req, res, next) => {
+    let sqlStr = `select * from goods where id = ${req.query.id}`
+    mysql.query(sqlStr, (err, result) => {
+        if (err) {
+            res.send({
+                code: 500,
+                msg: err.message
+            })
+        } else {
+            res.send({
+                code: 200,
+                data: result[0],
+                msg: 'success'
+            })
+        }
+    })
+}
 
 module.exports = {
     goodsList,
     saveGoods,
     delGoods,
-    updateGoods
+    updateGoods,
+    goodsDetail
 }
